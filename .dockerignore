@@ -1,0 +1,12 @@
+# ponytail: same rules as .vercelignore — never ship a local .env into an image
+.git
+.env
+.env.*
+!.env.example
+**/node_modules
+**/.next
+**/.turbo
+**/.eve
+**/dist
+docs/images
+adrs
