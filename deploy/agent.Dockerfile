@@ -2,7 +2,8 @@
 # /eve/v1/* to it and the API pokes it, both over the Docker network (AGENT_URL).
 # ponytail: no Docker socket, no KVM → eve's default sandbox falls back to just-bash
 # (in-process, no network). Mount the Docker socket only if a real container sandbox is needed.
-FROM node:22-slim
+# eve requires Node >= 24
+FROM node:24-slim
 COPY --from=oven/bun:1.4.5-slim /usr/local/bin/bun /usr/local/bin/bun
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*
 WORKDIR /repo
