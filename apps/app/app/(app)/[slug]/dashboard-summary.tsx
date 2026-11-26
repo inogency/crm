@@ -172,15 +172,17 @@ export function DashboardSummary() {
 											<DealStageIndicator stage={deal.stage} />
 										</TableCell>
 										<TableCell className={`${CELL} hidden sm:table-cell`}>
-											<ValueMeter
-												share={
-													largestOpenCents > 0
-														? ((deal.baseAmountCents ?? 0) / largestOpenCents) *
-															100
-														: 0
-												}
-												color={dealStageColor(deal.stage)}
-											/>
+											{/* Afrique Academy: no value, no meter — an empty glowing track reads as broken. */}
+											{deal.baseAmountCents ? (
+												<ValueMeter
+													share={
+														largestOpenCents > 0
+															? (deal.baseAmountCents / largestOpenCents) * 100
+															: 0
+													}
+													color={dealStageColor(deal.stage)}
+												/>
+											) : null}
 										</TableCell>
 										<TableCell className={`${CELL} text-right tabular-nums`}>
 											{deal.amountCents === null ? (
