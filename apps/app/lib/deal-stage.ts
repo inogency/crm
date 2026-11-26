@@ -16,14 +16,16 @@ type DealStagePresentation = Record<
 	{ label: string; tone: StatusTone }
 >;
 
+// Afrique Academy: French sales pipeline, HubSpot's simplified. Only labels change; the enum
+// values stay upstream's (DECISION_MAKER_BOUGHT_IN = proposal sent, CONTRACT_SENT = negotiation).
 const PRESENTATION: DealStagePresentation = {
-	DEMO_BOOKED: { label: "Demo booked", tone: "neutral" },
-	QUALIFIED_TO_BUY: { label: "Qualified to buy", tone: "info" },
-	DECISION_MAKER_BOUGHT_IN: { label: "Decision maker in", tone: "info" },
-	CONTRACT_SENT: { label: "Contract sent", tone: "warning" },
-	CLOSED_WON: { label: "Closed won", tone: "success" },
-	CLOSED_LOST: { label: "Closed lost", tone: "error" },
-	UNQUALIFIED_TO_BUY: { label: "Unqualified", tone: "neutral" },
+	DEMO_BOOKED: { label: "Nouvelle demande", tone: "neutral" },
+	QUALIFIED_TO_BUY: { label: "Besoin qualifié", tone: "info" },
+	DECISION_MAKER_BOUGHT_IN: { label: "Proposition envoyée", tone: "info" },
+	CONTRACT_SENT: { label: "Négociation", tone: "warning" },
+	CLOSED_WON: { label: "Gagnée", tone: "success" },
+	CLOSED_LOST: { label: "Perdue", tone: "error" },
+	UNQUALIFIED_TO_BUY: { label: "Non qualifiée", tone: "neutral" },
 };
 
 export const OPEN_STAGES = ORDER.slice(0, 4) as readonly DealStage[];
