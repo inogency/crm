@@ -11,6 +11,8 @@ COPY . .
 RUN DATABASE_URL=postgresql://build:build@localhost:5432/build bun install --frozen-lockfile
 WORKDIR /repo/apps/agent
 ENV NODE_ENV=production CRM_TELEMETRY_DISABLED=1
+# just-bash is an optional peer of eve, needed for the fallback sandbox; 3.1.0 is the version eve is built against.
+RUN DATABASE_URL=postgresql://build:build@localhost:5432/build bun add just-bash@3.1.0
 RUN DATABASE_URL=postgresql://build:build@localhost:5432/build node_modules/.bin/eve build
 EXPOSE 2000
 # Workflow run state lives in .eve/.workflow-data: mount it on a volume so runs survive redeploys.
