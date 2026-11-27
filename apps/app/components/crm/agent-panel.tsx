@@ -267,18 +267,18 @@ function Thread({
 
 			{thread?.status === "working" && !busy ? (
 				<p className="border-t px-4 py-2 text-pretty text-muted-foreground text-xs sm:px-5">
-					Still working on the last question. Your next one can go in when it
-					finishes.
+					L'agent traite encore la dernière question. Vous pourrez poser la
+					suivante quand il aura fini.
 				</p>
 			) : null}
 
 			{ended ? (
 				<div className="flex flex-col items-start gap-3 border-t px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-2">
 					<p className="text-pretty text-muted-foreground text-xs">
-						This conversation has ended.
+						Cette conversation est terminée.
 					</p>
 					<Button variant="outline" size="sm" onClick={onNewThread}>
-						Start a new conversation
+						Démarrer une nouvelle conversation
 					</Button>
 				</div>
 			) : null}
@@ -312,7 +312,7 @@ function Thread({
 							disabled={locked}
 						>
 							{busy ? <Spinner /> : <Icon icon={Send} />}
-							<span className="sr-only">Ask</span>
+							<span className="sr-only">Demander</span>
 						</Button>
 					</form>
 				)}
@@ -360,9 +360,9 @@ function Idle({
 
 function Failure({ message }: { message: string }) {
 	const hint = message.includes("not reachable")
-		? "Start it with `bun run dev`, or check AGENT_URL."
+		? "L'agent ne répond pas. Vérifiez qu'il tourne (AGENT_URL)."
 		: message.includes("not configured")
-			? "Set AGENT_BRIDGE_SECRET for both the app and the agent."
+			? "AGENT_BRIDGE_SECRET doit être défini pour l'interface et l'agent."
 			: null;
 
 	return (
@@ -414,7 +414,7 @@ function Item({ item }: { item: TranscriptItem }) {
 	if (item.kind === "asked") {
 		return (
 			<div className="w-full max-w-sm border-ring/50 border-l-2 bg-muted/40 px-3 py-2.5">
-				<p className="font-medium text-xs">Follow-up</p>
+				<p className="font-medium text-xs">Suite</p>
 				<Markdown className="mt-1.5 wrap-break-word text-sm leading-5">
 					{item.question.prompt}
 				</Markdown>

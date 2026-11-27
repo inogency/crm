@@ -135,7 +135,7 @@ export function CloseReasonDialog() {
 	};
 
 	const setStage = useStageMutation(() => {
-		toast.success("Deal closed.");
+		toast.success("Affaire clôturée.");
 		close();
 	});
 
@@ -147,12 +147,14 @@ export function CloseReasonDialog() {
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>
-						{stage === "CLOSED_LOST" ? "Close as lost" : "Mark as unqualified"}
+						{stage === "CLOSED_LOST"
+							? "Clôturer comme perdue"
+							: "Marquer comme non qualifiée"}
 					</DialogTitle>
 					<DialogDescription>
 						{stage === "CLOSED_LOST"
-							? "What did we lose it to? This is the only place that answer gets recorded."
-							: "Why is this not a fit? It goes on the timeline so nobody re-runs the same deal."}
+							? "Pourquoi l'avons-nous perdue ? C'est le seul endroit où cette réponse est enregistrée."
+							: "Pourquoi ce n'est pas pertinent ? La raison va dans l'historique pour que personne ne relance la même affaire."}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -166,12 +168,12 @@ export function CloseReasonDialog() {
 					}}
 				>
 					<Field>
-						<FieldLabel htmlFor={reasonId}>Reason</FieldLabel>
+						<FieldLabel htmlFor={reasonId}>Raison</FieldLabel>
 						<Textarea
 							id={reasonId}
 							value={reason}
 							onChange={(event) => setReason(event.target.value)}
-							placeholder="Went with an incumbent vendor"
+							placeholder="A choisi un autre organisme de formation"
 							rows={3}
 						/>
 					</Field>
@@ -187,7 +189,7 @@ export function CloseReasonDialog() {
 						Save
 					</Button>
 					<Button variant="outline" onClick={close}>
-						Cancel
+						Annuler
 					</Button>
 				</DialogFooter>
 			</DialogContent>

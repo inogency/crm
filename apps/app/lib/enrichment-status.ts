@@ -7,14 +7,18 @@ type EnrichmentPresentation = Record<
 >;
 
 const PRESENTATION: EnrichmentPresentation = {
-	PENDING: { label: "Not researched", tone: "neutral" },
-	RUNNING: { label: "Researching", tone: "info", busy: true },
-	COMPLETE: { label: "Enriched", tone: "success" },
-	FAILED: { label: "Enrichment failed", tone: "error" },
-	SKIPPED: { label: "Nothing found", tone: "neutral" },
+	PENDING: { label: "Pas encore recherché", tone: "neutral" },
+	RUNNING: { label: "Recherche en cours", tone: "info", busy: true },
+	COMPLETE: { label: "Enrichi", tone: "success" },
+	FAILED: { label: "Échec de l'enrichissement", tone: "error" },
+	SKIPPED: { label: "Rien trouvé", tone: "neutral" },
 };
 
-const QUEUED = { label: "Queued", tone: "neutral" as StatusTone, busy: false };
+const QUEUED = {
+	label: "En file d'attente",
+	tone: "neutral" as StatusTone,
+	busy: false,
+};
 
 export const ENRICHMENT_POLL_MS = 3_000;
 

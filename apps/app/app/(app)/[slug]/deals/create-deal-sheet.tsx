@@ -47,7 +47,7 @@ function AddButton(props: ComponentProps<typeof Button>) {
 	return (
 		<Button {...props}>
 			<Icon icon={Add} data-icon="inline-start" />
-			New deal
+			Nouvelle affaire
 		</Button>
 	);
 }
@@ -93,7 +93,7 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 		trpc.deals.create.mutationOptions({
 			onSuccess: async (deal) => {
 				await cache.deal(deal.id);
-				toast.success(`${deal.name} added.`);
+				toast.success(`${deal.name} ajoutée.`);
 				await setOpen(null);
 				setName("");
 				setAmount("");
@@ -115,7 +115,7 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 			</SheetTrigger>
 			<SheetContent side="right">
 				<SheetHeader>
-					<SheetTitle>New deal</SheetTitle>
+					<SheetTitle>Nouvelle affaire</SheetTitle>
 					<SheetDescription>
 						Every deal belongs to a company and has someone's name against it.
 					</SheetDescription>
@@ -142,19 +142,19 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 				>
 					<FieldGroup>
 						<Field>
-							<FieldLabel htmlFor={nameId}>Name</FieldLabel>
+							<FieldLabel htmlFor={nameId}>Nom</FieldLabel>
 							<Input
 								id={nameId}
 								value={name}
 								onChange={(event) => setName(event.target.value)}
-								placeholder="Stripe — Comp AI"
+								placeholder="Formation ITIL 4 — OCP"
 								autoComplete="off"
 								required
 							/>
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor="create-deal-company">Company</FieldLabel>
+							<FieldLabel htmlFor="create-deal-company">Société</FieldLabel>
 							<CompanyPicker
 								id="create-deal-company"
 								value={company}
@@ -163,10 +163,10 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor="create-deal-owner">Owner</FieldLabel>
+							<FieldLabel htmlFor="create-deal-owner">Responsable</FieldLabel>
 							<Select value={resolvedOwner} onValueChange={setOwnerId}>
 								<SelectTrigger id="create-deal-owner">
-									<SelectValue placeholder="Choose an owner" />
+									<SelectValue placeholder="Choisir un responsable" />
 								</SelectTrigger>
 								<SelectContent>
 									{(users.data ?? []).map((user) => (
@@ -179,7 +179,7 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor="create-deal-stage">Stage</FieldLabel>
+							<FieldLabel htmlFor="create-deal-stage">Étape</FieldLabel>
 							<Select value={stage} onValueChange={setStage}>
 								<SelectTrigger id="create-deal-stage">
 									<SelectValue />
@@ -193,13 +193,13 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 								</SelectContent>
 							</Select>
 							<FieldDescription>
-								A new deal is an open deal — close it from the pipeline once
-								there is an outcome to record.
+								Une nouvelle affaire est ouverte : clôturez-la depuis le
+								pipeline quand il y a un résultat.
 							</FieldDescription>
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor={amountId}>Amount</FieldLabel>
+							<FieldLabel htmlFor={amountId}>Montant</FieldLabel>
 							<div className="flex gap-2">
 								<Input
 									id={amountId}
@@ -210,10 +210,7 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 									autoComplete="off"
 								/>
 								<Select value={resolvedCurrency} onValueChange={setCurrency}>
-									<SelectTrigger
-										aria-label="Currency"
-										className="w-28 shrink-0"
-									>
+									<SelectTrigger aria-label="Devise" className="w-28 shrink-0">
 										<SelectValue />
 									</SelectTrigger>
 									<SelectContent>
@@ -228,12 +225,14 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor={closeDateId}>Expected close date</FieldLabel>
+							<FieldLabel htmlFor={closeDateId}>
+								Date de clôture prévue
+							</FieldLabel>
 							<DatePicker
 								id={closeDateId}
 								value={closeDate}
 								onChange={setCloseDate}
-								placeholder="No date yet"
+								placeholder="Pas encore de date"
 							/>
 						</Field>
 					</FieldGroup>
@@ -246,10 +245,10 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						disabled={create.isPending || !ready}
 					>
 						{create.isPending ? <Spinner /> : null}
-						Add deal
+						Ajouter l'affaire
 					</Button>
 					<SheetClose asChild>
-						<Button variant="outline">Cancel</Button>
+						<Button variant="outline">Annuler</Button>
 					</SheetClose>
 				</SheetFooter>
 			</SheetContent>

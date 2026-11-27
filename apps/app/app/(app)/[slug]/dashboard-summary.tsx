@@ -46,47 +46,47 @@ import { SalesDashboard } from "./sales-dashboard";
 
 const CELL = "px-3 py-2.5 align-middle";
 const OPEN_COLUMNS: SimpleTableColumn[] = [
-	{ id: "deal", header: "Deal" },
+	{ id: "deal", header: "Affaire" },
 	{
 		id: "stage",
-		header: "Stage",
+		header: "Étape",
 		width: "w-32",
 		className: "hidden lg:table-cell",
 	},
 	{
 		id: "share",
-		srLabel: "Share of the largest",
+		srLabel: "Part de la plus grosse",
 		width: "w-24",
 		className: "hidden sm:table-cell",
 	},
-	{ id: "value", header: "Value", width: "w-20", align: "right" },
+	{ id: "value", header: "Valeur", width: "w-20", align: "right" },
 ];
 const TASK_COLUMNS: SimpleTableColumn[] = [
-	{ id: "done", srLabel: "Done", width: "w-8" },
-	{ id: "task", header: "Task" },
-	{ id: "overdue", header: "Overdue", width: "w-24", align: "right" },
+	{ id: "done", srLabel: "Fait", width: "w-8" },
+	{ id: "task", header: "Tâche" },
+	{ id: "overdue", header: "En retard", width: "w-24", align: "right" },
 ];
 const ACTIVITY_COLUMNS: SimpleTableColumn[] = [
-	{ id: "activity", header: "Activity" },
+	{ id: "activity", header: "Activité" },
 	{
 		id: "company",
-		header: "Company",
+		header: "Société",
 		width: "w-44",
 		className: "hidden md:table-cell",
 	},
 	{
 		id: "deal",
-		header: "Deal",
+		header: "Affaire",
 		width: "w-48",
 		className: "hidden lg:table-cell",
 	},
 	{
 		id: "who",
-		header: "Who",
+		header: "Qui",
 		width: "w-32",
 		className: "hidden md:table-cell",
 	},
-	{ id: "when", header: "When", width: "w-20", align: "right" },
+	{ id: "when", header: "Quand", width: "w-20", align: "right" },
 ];
 
 export function DashboardSummary() {
@@ -134,20 +134,21 @@ export function DashboardSummary() {
 			<div className="grid gap-6 @3xl/page-content:grid-cols-2">
 				<Card className="min-w-0">
 					<CardHeader>
-						<CardTitle>Deals in progress</CardTitle>
+						<CardTitle>Affaires en cours</CardTitle>
 						<CardDescription>
-							The largest open deals, and how long each has sat in its stage
+							Les plus grosses affaires ouvertes, et depuis combien de temps
+							chacune est à son étape
 						</CardDescription>
 						<CardAction>
 							<Button asChild variant="contrast" size="sm">
-								<Link href={workspaceUrl("/deals")}>Open deals</Link>
+								<Link href={workspaceUrl("/deals")}>Affaires ouvertes</Link>
 							</Button>
 						</CardAction>
 					</CardHeader>
 					<CardPanel>
 						{biggestOpen.length === 0 ? (
 							<CardPanelEmpty>
-								Nothing open. Time to fill the pipeline.
+								Rien d'ouvert. Il est temps de remplir le pipeline.
 							</CardPanelEmpty>
 						) : (
 							<SimpleTable
@@ -200,16 +201,16 @@ export function DashboardSummary() {
 
 				<Card className="min-w-0">
 					<CardHeader>
-						<CardTitle>Overdue tasks</CardTitle>
+						<CardTitle>Tâches en retard</CardTitle>
 						<CardDescription>
 							{overdueTasks.length === 0
-								? "Every task you have logged is either done or still to come"
-								: `${formatCount(overdueTasks.length, "task")} past due`}
+								? "Toutes vos tâches sont faites ou encore à venir"
+								: `${formatCount(overdueTasks.length, "tâche")} en retard`}
 						</CardDescription>
 					</CardHeader>
 					<CardPanel>
 						{overdueTasks.length === 0 ? (
-							<CardPanelEmpty>Nothing overdue. Good.</CardPanelEmpty>
+							<CardPanelEmpty>Rien en retard. Parfait.</CardPanelEmpty>
 						) : (
 							<SimpleTable
 								variant="panel"
@@ -222,7 +223,7 @@ export function DashboardSummary() {
 											<Checkbox
 												checked={false}
 												disabled={complete.isPending}
-												aria-label="Mark as done"
+												aria-label="Marquer comme fait"
 												onCheckedChange={() =>
 													complete.mutate({ id: task.id, completed: true })
 												}
@@ -251,7 +252,7 @@ export function DashboardSummary() {
 													task.dueAt ? (
 														<LocalRelativeTime date={task.dueAt} />
 													) : (
-														"No due date"
+														"Sans échéance"
 													)
 												}
 											/>
@@ -267,21 +268,21 @@ export function DashboardSummary() {
 			<Card className="min-w-0">
 				<CardHeader>
 					<CardTitle>
-						{mine ? "Your recent activity" : "Recent activity"}
+						{mine ? "Votre activité récente" : "Activité récente"}
 					</CardTitle>
 					<CardDescription>
 						{mine
-							? "Every note, task and stage change you have logged"
-							: "Every note, task and stage change across the workspace"}
+							? "Toutes vos notes, tâches et changements d'étape"
+							: "Toutes les notes, tâches et changements d'étape de l'équipe"}
 					</CardDescription>
 					<CardAction>
 						<Button asChild variant="contrast" size="sm">
-							<Link href={workspaceUrl("/companies")}>All companies</Link>
+							<Link href={workspaceUrl("/companies")}>Toutes les sociétés</Link>
 						</Button>
 					</CardAction>
 				</CardHeader>
 				{recentActivity.length === 0 ? (
-					<CardTableEmpty>Nothing has happened yet.</CardTableEmpty>
+					<CardTableEmpty>Rien ne s'est encore passé.</CardTableEmpty>
 				) : (
 					<SimpleTable columns={ACTIVITY_COLUMNS}>
 						{recentActivity.map((entry) => (

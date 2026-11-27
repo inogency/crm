@@ -40,24 +40,24 @@ type RailItem = {
 };
 
 const ITEMS: RailItem[] = [
-	{ title: "Overview", href: "/", icon: Dashboard, match: "exact" },
+	{ title: "Accueil", href: "/", icon: Dashboard, match: "exact" },
 	{
-		title: "Chat",
+		title: "Agent IA",
 		href: "/chat",
 		icon: Bot,
 		iconClassName: "size-5",
 		match: "prefix",
 		related: ["/agents"],
 	},
-	{ title: "Companies", href: "/companies", icon: Building, match: "prefix" },
+	{ title: "Sociétés", href: "/companies", icon: Building, match: "prefix" },
 	{
 		title: "Contacts",
 		href: "/contacts",
 		icon: UserMultiple,
 		match: "prefix",
 	},
-	{ title: "Deals", href: "/deals", icon: Partnership, match: "prefix" },
-	{ title: "Settings", href: "/settings", icon: Settings, match: "prefix" },
+	{ title: "Affaires", href: "/deals", icon: Partnership, match: "prefix" },
+	{ title: "Réglages", href: "/settings", icon: Settings, match: "prefix" },
 ];
 
 function isActive(item: RailItem, pathname: string): boolean {
@@ -137,7 +137,7 @@ function MobileRailLink({
 				aria-current={active ? "page" : undefined}
 				onClick={onNavigate}
 				transitionTypes={[
-					item.title === "Chat" ? "nav-forward" : "nav-lateral",
+					item.title === "Agent IA" ? "nav-forward" : "nav-lateral",
 				]}
 			>
 				<Icon icon={item.icon} className={item.iconClassName} />
@@ -187,7 +187,7 @@ function MobileRailIconLink({
 export function AppIconRailFallback() {
 	return (
 		<nav
-			aria-label="Primary"
+			aria-label="Navigation principale"
 			aria-busy="true"
 			className="hidden w-14 shrink-0 flex-col items-center gap-1 border-r py-3 md:flex [view-transition-name:app-rail]"
 		>
@@ -224,13 +224,13 @@ export function AppIconRail() {
 		[workspaceUrl],
 	);
 	const inChat = items.some(
-		(item) => item.title === "Chat" && isActive(item, pathname),
+		(item) => item.title === "Agent IA" && isActive(item, pathname),
 	);
 
 	return (
 		<>
 			<nav
-				aria-label="Primary"
+				aria-label="Navigation principale"
 				className="hidden w-14 shrink-0 flex-col items-center gap-1 border-r py-3 md:flex [view-transition-name:app-rail]"
 			>
 				{items.map((item) => (
@@ -251,16 +251,16 @@ export function AppIconRail() {
 						className="w-5/6 max-w-sm flex-row gap-0 p-0"
 					>
 						<SheetHeader className="sr-only">
-							<SheetTitle>Navigation and agent chats</SheetTitle>
+							<SheetTitle>Navigation et discussions avec l'agent</SheetTitle>
 						</SheetHeader>
 						<nav
-							aria-label="Primary"
+							aria-label="Navigation principale"
 							className="flex w-14 shrink-0 flex-col items-center gap-1 border-r py-3"
 						>
 							<Button
 								variant="ghost"
 								size="icon"
-								aria-label="Close navigation"
+								aria-label="Fermer la navigation"
 								onClick={() => setOpen(false)}
 							>
 								<Icon icon={Close} />
@@ -287,7 +287,7 @@ export function AppIconRail() {
 							<SheetTitle>Navigation</SheetTitle>
 						</SheetHeader>
 						<nav
-							aria-label="Primary"
+							aria-label="Navigation principale"
 							className="flex flex-1 flex-col gap-1 p-2"
 						>
 							{items.map((item) => (

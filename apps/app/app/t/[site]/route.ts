@@ -32,7 +32,8 @@ export async function GET(
 	// Self-hosted behind a reverse proxy, request.url is the container's own address
 	// (https://localhost:3000): visitors' browsers would post there and Chrome asks for
 	// local-network access. The public origin comes from APP_URL.
-	const origin = process.env.APP_URL?.replace(/\/+$/, "") || new URL(request.url).origin;
+	const origin =
+		process.env.APP_URL?.replace(/\/+$/, "") || new URL(request.url).origin;
 	const source = trackerSource(
 		payload.config as Parameters<typeof trackerSource>[0],
 		`${origin}/api/t/e`,

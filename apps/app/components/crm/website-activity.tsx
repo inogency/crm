@@ -52,28 +52,28 @@ export function WebsiteActivity({
 	const campaign = last?.campaign ?? first?.campaign ?? null;
 
 	return (
-		<DetailSheetSection title="Website activity">
+		<DetailSheetSection title="Activité sur le site">
 			<DetailSheetProperties>
-				<DetailSheetProperty label="Page views">
+				<DetailSheetProperty label="Pages vues">
 					<span className="tabular-nums">
 						{activity.views.toLocaleString()}
 					</span>
 					{activity.lastSeenAt ? (
 						<span className="text-muted-foreground">
-							{" · last seen "}
+							{" · dernière visite "}
 							<LocalRelativeTime date={activity.lastSeenAt} />
 						</span>
 					) : null}
 				</DetailSheetProperty>
 
 				{first ? (
-					<DetailSheetProperty label="Original source">
+					<DetailSheetProperty label="Source d'origine">
 						{channel(first)}
 					</DetailSheetProperty>
 				) : null}
 
 				{topPage ? (
-					<DetailSheetProperty label="Top page">
+					<DetailSheetProperty label="Page la plus vue">
 						<span className="flex min-w-0 items-baseline gap-1">
 							<span className="truncate font-mono" title={topPage.path}>
 								{topPage.path}
@@ -87,19 +87,19 @@ export function WebsiteActivity({
 				) : null}
 
 				{channelChanged ? (
-					<DetailSheetProperty label="Latest source">
+					<DetailSheetProperty label="Dernière source">
 						{channel(last)}
 					</DetailSheetProperty>
 				) : null}
 
 				{first?.at ? (
-					<DetailSheetProperty label="First seen">
+					<DetailSheetProperty label="Première visite">
 						<LocalRelativeTime date={first.at} />
 					</DetailSheetProperty>
 				) : null}
 
 				{campaign ? (
-					<DetailSheetProperty label="Campaign">{campaign}</DetailSheetProperty>
+					<DetailSheetProperty label="Campagne">{campaign}</DetailSheetProperty>
 				) : null}
 			</DetailSheetProperties>
 		</DetailSheetSection>
@@ -107,7 +107,7 @@ export function WebsiteActivity({
 }
 
 function channel(touch: Touch | null): string {
-	if (!touch) return "Unknown";
+	if (!touch) return "Inconnue";
 	if (!touch.medium || touch.medium === "direct") return touch.source;
 	return `${touch.source} · ${touch.medium}`;
 }

@@ -1,7 +1,7 @@
 import { createDeepSeek } from "@ai-sdk/deepseek";
-import type { LanguageModel } from "ai";
 import { db } from "@crm/db";
 import { DEFAULT_AGENT_MODEL, readAgentModel } from "@crm/db/settings";
+import type { LanguageModel } from "ai";
 
 export interface ModelSelection {
 	model: string;

@@ -5,9 +5,9 @@ import { z } from "zod";
 type ArtifactNames = Record<string, string>;
 
 const ARTIFACT_NAMES: ArtifactNames = {
-	"agent/instructions.md": "instructions",
-	"agent/manifest.json": "the manifest",
-	"agent/README.md": "the readme",
+	"agent/instructions.md": "les instructions",
+	"agent/manifest.json": "le manifeste",
+	"agent/README.md": "le readme",
 };
 
 type LabelInput = {
@@ -31,16 +31,18 @@ export function toolLabel(item: LabelInput): string {
 	if (match) {
 		const vendor = vendorBySlug(match[1]?.toLowerCase() ?? "");
 		if (!vendor) {
-			return item.pending ? "Using a connected tool" : "Used a connected tool";
+			return item.pending
+				? "Utilise un outil connecté"
+				: "A utilisé un outil connecté";
 		}
 
-		return item.pending ? `Using ${vendor.name}` : `Used ${vendor.name}`;
+		return item.pending ? `Utilise ${vendor.name}` : `A utilisé ${vendor.name}`;
 	}
 
 	if (item.tool === "write_agent_file") {
 		const path = writeAgentFileInput.parse(item.input).path;
-		const name = ARTIFACT_NAMES[path] ?? "a file";
-		return item.pending ? `Writing ${name}` : `Wrote ${name}`;
+		const name = ARTIFACT_NAMES[path] ?? "un fichier";
+		return item.pending ? `Rédige ${name}` : `A écrit ${name}`;
 	}
 
 	if (item.tool === "connection_execute") {
@@ -49,21 +51,23 @@ export function toolLabel(item: LabelInput): string {
 			? vendorBySlug(input.data.connection.toLowerCase())
 			: null;
 		if (!input.success || !vendor) {
-			return item.pending ? "Using a connected tool" : "Used a connected tool";
+			return item.pending
+				? "Utilise un outil connecté"
+				: "A utilisé un outil connecté";
 		}
 
 		const action = input.data.tool.replaceAll("_", " ");
 		return item.pending
-			? `Asking ${vendor.name} to ${action}`
-			: `Asked ${vendor.name} to ${action}`;
+			? `Demande à ${vendor.name} : ${action}`
+			: `A demandé à ${vendor.name} : ${action}`;
 	}
 
 	if (item.tool === "save_agent_draft") {
-		return item.pending ? "Saving draft" : "Saved draft";
+		return item.pending ? "Enregistre le brouillon" : "Brouillon enregistré";
 	}
 
 	if (item.tool === "set_chat_title") {
-		return item.pending ? "Naming this chat" : "Named this chat";
+		return item.pending ? "Nomme cette discussion" : "A nommé cette discussion";
 	}
 
 	return item.label;

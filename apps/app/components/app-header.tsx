@@ -45,14 +45,14 @@ export function AppHeader({ user }: { user: User }) {
 					variant="ghost"
 					size="icon"
 					className="md:hidden"
-					aria-label="Open navigation"
+					aria-label="Ouvrir la navigation"
 					onClick={() => setMobileNavOpen(true)}
 				>
 					<Menu />
 				</Button>
 				<Link
 					href={workspaceUrl()}
-					aria-label="Homepage"
+					aria-label="Accueil"
 					className="hidden size-8 items-center justify-center text-foreground md:flex"
 				>
 					<Logo className="size-5" />
@@ -67,7 +67,7 @@ export function AppHeader({ user }: { user: User }) {
 					user={user}
 					onSignOut={() => {
 						signOutAndRedirect().catch(() =>
-							toast.error("Could not sign out."),
+							toast.error("Déconnexion impossible."),
 						);
 					}}
 				/>
@@ -96,7 +96,7 @@ export function AppHeaderFallback() {
 				</Avatar>
 			</div>
 			<span role="status" className="sr-only">
-				Loading workspace header…
+				Chargement…
 			</span>
 		</header>
 	);
@@ -112,7 +112,7 @@ function UserMenu({ user, onSignOut }: { user: User; onSignOut: () => void }) {
 				<Button
 					variant="ghost"
 					size="icon"
-					aria-label="Account menu"
+					aria-label="Menu du compte"
 					className="hover:bg-transparent aria-expanded:bg-transparent dark:hover:bg-transparent"
 				>
 					<Avatar className="size-7">
@@ -136,12 +136,12 @@ function UserMenu({ user, onSignOut }: { user: User; onSignOut: () => void }) {
 					}}
 				>
 					{isDark ? <Light /> : <Asleep />}
-					{isDark ? "Light mode" : "Dark mode"}
+					{isDark ? "Mode clair" : "Mode sombre"}
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={onSignOut}>
 					<Logout />
-					Sign out
+					Se déconnecter
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

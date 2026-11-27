@@ -7,7 +7,8 @@ export function formatCount(
 }
 
 const WELL_FORMED_CURRENCY_CODE = /^[A-Za-z]{3}$/;
-const percentFormat = new Intl.NumberFormat("en-US", {
+// Afrique Academy fork: French formats throughout (fixed locale, same on server and browser).
+const percentFormat = new Intl.NumberFormat("fr-FR", {
 	style: "percent",
 	maximumFractionDigits: 0,
 });
@@ -39,7 +40,7 @@ export function formatMoney(cents: number, currency = "usd"): string {
 	const whole = cents % 100 === 0;
 	const digits = fractionDigits(code);
 
-	return new Intl.NumberFormat(undefined, {
+	return new Intl.NumberFormat("fr-FR", {
 		style: "currency",
 		currency: code,
 		minimumFractionDigits: whole ? 0 : Math.min(2, digits),
@@ -48,7 +49,7 @@ export function formatMoney(cents: number, currency = "usd"): string {
 }
 
 export function formatMoneyCompact(cents: number, currency = "usd"): string {
-	return new Intl.NumberFormat(undefined, {
+	return new Intl.NumberFormat("fr-FR", {
 		style: "currency",
 		currency: displayCurrencyCode(currency),
 		notation: "compact",
@@ -60,7 +61,7 @@ export function formatPercent(rate: number): string {
 	return percentFormat.format(rate);
 }
 
-const dayFormat = new Intl.DateTimeFormat("en-US", {
+const dayFormat = new Intl.DateTimeFormat("fr-FR", {
 	month: "short",
 	day: "numeric",
 	year: "numeric",

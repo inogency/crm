@@ -18,18 +18,18 @@ import type { DealListItem, DealListResult } from "@/lib/agent-transcript";
 import { DEAL_STAGE_OPTIONS } from "@/lib/deal-stage";
 
 const COLUMNS: SimpleTableColumn[] = [
-	{ id: "deal", header: "Deal", width: "w-[20%]" },
-	{ id: "company", header: "Company", width: "w-[18%]" },
-	{ id: "stage", header: "Stage", width: "w-[18%]" },
+	{ id: "deal", header: "Affaire", width: "w-[20%]" },
+	{ id: "company", header: "Société", width: "w-[18%]" },
+	{ id: "stage", header: "Étape", width: "w-[18%]" },
 	{
 		id: "amount",
-		header: "Amount",
+		header: "Montant",
 		width: "w-[12%]",
 		align: "right",
 	},
-	{ id: "owner", header: "Owner", width: "w-[14%]" },
-	{ id: "close", header: "Close date", width: "w-[12%]" },
-	{ id: "idle", header: "Idle", width: "w-[8%]", align: "right" },
+	{ id: "owner", header: "Responsable", width: "w-[14%]" },
+	{ id: "close", header: "Clôture prévue", width: "w-[12%]" },
+	{ id: "idle", header: "Inactive depuis", width: "w-[8%]", align: "right" },
 ];
 
 export function DealListResultTable({ result }: { result: DealListResult }) {
@@ -51,7 +51,7 @@ export function DealListResultTable({ result }: { result: DealListResult }) {
 							colSpan={COLUMNS.length}
 							className="h-32 whitespace-normal py-8 text-center align-middle text-muted-foreground"
 						>
-							No deals met these pipeline filters.
+							Aucune affaire ne correspond à ces filtres.
 						</TableCell>
 					</SimpleTableRow>
 				) : (
@@ -149,7 +149,7 @@ function tableTitle(result: DealListResult): string {
 
 function tableMeta(result: DealListResult): string {
 	const details = [
-		`${result.deals.length} deal${result.deals.length === 1 ? "" : "s"}`,
+		`${result.deals.length} affaire${result.deals.length === 1 ? "" : "s"}`,
 		pipelineTotal(result.deals),
 		result.criteria.inactiveForDays === null
 			? null
@@ -176,5 +176,5 @@ function pipelineTotal(deals: readonly DealListItem[]): string | null {
 	if (!currency) return null;
 
 	const amount = deals.reduce((sum, deal) => sum + (deal.amount ?? 0), 0);
-	return `${formatMoney(Math.round(amount * 100), currency)} pipeline`;
+	return `${formatMoney(Math.round(amount * 100), currency)} de pipeline`;
 }

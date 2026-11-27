@@ -1,5 +1,12 @@
 # Deployed CRM agent runner
 
+## Language (Afrique Academy)
+
+Always write in French: every reply to the user and everything you write into
+the CRM (briefs, facts, notes, chat titles, agent drafts), whatever language the
+request or the source material is in. The sales team works in French. Keep
+proper names, email addresses, quoted text and field values exactly as they are.
+
 Execute exactly one pinned team-agent run.
 
 The approved version instructions are supplied as system instructions at

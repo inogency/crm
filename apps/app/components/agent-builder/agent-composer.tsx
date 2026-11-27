@@ -85,7 +85,7 @@ type PendingSubmission = {
 const CREATE_AGENT_COMMAND = {
 	commandType: "CREATE_AGENT" as const,
 	invocation: "/Create agent",
-	label: "Create agent",
+	label: "Créer un agent",
 };
 
 type ComposerCommand = typeof CREATE_AGENT_COMMAND;
@@ -446,8 +446,8 @@ export function AgentComposer({
 		action: async () => {
 			await onStop?.();
 		},
-		onSuccess: () => toast.success("Stop requested."),
-		onError: () => toast.error("The agent could not be stopped. Try again."),
+		onSuccess: () => toast.success("Arrêt demandé."),
+		onError: () => toast.error("Impossible d'arrêter l'agent. Réessayez."),
 	});
 	const locked = disabled || submitAction.pending;
 	const canSend =
@@ -550,15 +550,15 @@ export function AgentComposer({
 						size="icon-sm"
 						disabled={stopAction.pending}
 						aria-busy={stopAction.pending}
-						aria-label="Stop reply"
+						aria-label="Arrêter la réponse"
 						onClick={() => stopAction.run()}
 						className="rounded-full"
 					>
 						<AsyncButtonContent
 							status={stopAction.status}
-							pendingLabel={<span className="sr-only">Stopping</span>}
-							successLabel={<span className="sr-only">Stopping</span>}
-							errorLabel={<span className="sr-only">Stop failed</span>}
+							pendingLabel={<span className="sr-only">Arrêt</span>}
+							successLabel={<span className="sr-only">Arrêt</span>}
+							errorLabel={<span className="sr-only">Échec de l'arrêt</span>}
 						>
 							<Icon icon={StopFilled} motion="none" />
 						</AsyncButtonContent>
@@ -583,13 +583,11 @@ export function AgentComposer({
 							}
 							pendingLabel={
 								<span className="sr-only">
-									{state.attachmentsReading
-										? "Preparing attachments"
-										: "Sending"}
+									{state.attachmentsReading ? "Preparing attachments" : "Envoi"}
 								</span>
 							}
-							successLabel={<span className="sr-only">Sent</span>}
-							errorLabel={<span className="sr-only">Send failed</span>}
+							successLabel={<span className="sr-only">Envoyé</span>}
+							errorLabel={<span className="sr-only">Échec de l'envoi</span>}
 						>
 							<Icon icon={ArrowUp} />
 						</AsyncButtonContent>
@@ -652,7 +650,7 @@ function ComposerEditor({
 			ref={editorRef}
 			role="textbox"
 			tabIndex={disabled ? -1 : 0}
-			aria-label="Message the agent builder"
+			aria-label="Écrire à l'agent"
 			aria-multiline="true"
 			aria-disabled={disabled}
 			data-empty={state.draft.length === 0 && state.anchors.length === 0}
@@ -1295,7 +1293,7 @@ function ResourcePicker({
 				<Button
 					variant="ghost"
 					size="icon-sm"
-					aria-label="Tag CRM records and integrations"
+					aria-label="Mentionner des fiches du CRM et des intégrations"
 					disabled={disabled}
 				>
 					<Icon icon={Add} />
@@ -1312,8 +1310,8 @@ function ResourcePicker({
 									value: event.target.value,
 								})
 							}
-							placeholder="Search CRM"
-							aria-label="Search CRM"
+							placeholder="Rechercher dans le CRM"
+							aria-label="Rechercher dans le CRM"
 							disabled={disabled}
 						/>
 						<InputGroupAddon>
@@ -1324,7 +1322,7 @@ function ResourcePicker({
 				<div className="max-h-72 overflow-y-auto p-1">
 					{connectedGoogle.map((source) => {
 						const calendar = source.source === "calendar";
-						const label = calendar ? "Google Calendar" : "Gmail";
+						const label = calendar ? "Agenda" : "Messagerie";
 						return (
 							<ResourceButton
 								key={source.source}
@@ -1345,7 +1343,7 @@ function ResourcePicker({
 					})}
 					<SkeletonSwap
 						loading={loading}
-						label="CRM records"
+						label="Fiches du CRM"
 						skeleton={<ResourceResultsSkeleton />}
 					>
 						{resources.map((resource) => (
@@ -1360,7 +1358,7 @@ function ResourcePicker({
 						))}
 						{ready && connectedGoogle.length === 0 && resources.length === 0 ? (
 							<p className="px-3 py-5 text-center text-muted-foreground text-xs">
-								No matching records.
+								Aucune fiche ne correspond.
 							</p>
 						) : null}
 					</SkeletonSwap>
@@ -1422,7 +1420,7 @@ function AttachmentPicker({
 			<Button
 				variant="ghost"
 				size="icon-sm"
-				aria-label="Attach files"
+				aria-label="Joindre des fichiers"
 				disabled={disabled}
 				onClick={() => input.current?.click()}
 			>
@@ -1456,7 +1454,7 @@ function CommandPicker({
 				<Button
 					variant="ghost"
 					size="icon-sm"
-					aria-label="Open slash commands"
+					aria-label="Ouvrir les commandes"
 					disabled={disabled}
 					className="font-mono text-sm"
 				>

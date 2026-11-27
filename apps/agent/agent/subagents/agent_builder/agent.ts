@@ -1,9 +1,5 @@
 import { defineAgent, defineDynamic } from "eve";
-import {
-	directCompaction,
-	directModel,
-	selectedModel,
-} from "../../lib/model";
+import { directCompaction, directModel, selectedModel } from "../../lib/model";
 
 export default defineAgent({
 	description:

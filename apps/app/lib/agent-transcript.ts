@@ -82,48 +82,48 @@ const authorizationCompleted = z.object({
 type ToolVerbs = Record<string, string>;
 
 const VERBS: ToolVerbs = {
-	read_crm_history: "Read our emails and meetings with them",
-	read_company_history: "Read everything we have on the company",
-	read_deal_history: "Read the deal and where it has been",
-	search_crm: "Looked the record up in the CRM",
-	resolve_linkedin_profile: "Searched for their LinkedIn profile",
-	get_linkedin_profile: "Read a LinkedIn profile",
-	get_contact_work_history: "Read their work history",
-	fetch_contact_photo: "Fetched their profile picture",
-	find_contact_socials: "Searched for their other profiles",
-	set_contact_socials: "Checked a profile against the account itself",
-	identify_contact: "Put a name to the address",
-	record_fact: "Recorded what it found",
-	write_brief: "Wrote the background",
-	write_workspace_profile: "Wrote up who we are",
-	research_person: "Researched them on the web",
-	research_company: "Read the company's site",
-	enrich_company: "Looked up the company",
-	schedule_recheck: "Decided when to look again",
-	record_job_change: "Raised a job change",
-	list_deals: "Reviewed the deal pipeline",
-	list_outstanding_work: "Looked for outstanding work",
-	set_chat_title: "Named this chat",
-	list_fields: "Read what this workspace tracks",
-	set_field_value: "Filled in a custom field",
-	manage_fields: "Changed what the CRM tracks",
-	mcp: "Used an approved connected tool",
-	archive_field: "Asked to retire a field",
+	read_crm_history: "A lu nos e-mails et réunions avec ce contact",
+	read_company_history: "A lu tout ce qu'on a sur la société",
+	read_deal_history: "A lu l'affaire et son historique",
+	search_crm: "A cherché la fiche dans le CRM",
+	resolve_linkedin_profile: "A cherché son profil LinkedIn",
+	get_linkedin_profile: "A lu un profil LinkedIn",
+	get_contact_work_history: "A lu son parcours professionnel",
+	fetch_contact_photo: "A récupéré sa photo de profil",
+	find_contact_socials: "A cherché ses autres profils",
+	set_contact_socials: "A vérifié un profil auprès du compte lui-même",
+	identify_contact: "A identifié la personne derrière l'adresse",
+	record_fact: "A enregistré ce qu'il a trouvé",
+	write_brief: "A rédigé le contexte",
+	write_workspace_profile: "A rédigé qui nous sommes",
+	research_person: "A fait des recherches sur le web",
+	research_company: "A lu le site de la société",
+	enrich_company: "A recherché la société",
+	schedule_recheck: "A décidé quand revérifier",
+	record_job_change: "A signalé un changement de poste",
+	list_deals: "A passé le pipeline en revue",
+	list_outstanding_work: "A cherché le travail en attente",
+	set_chat_title: "A nommé cette discussion",
+	list_fields: "A lu ce que suit cet espace",
+	set_field_value: "A rempli un champ personnalisé",
+	manage_fields: "A modifié ce que suit le CRM",
+	mcp: "A utilisé un outil connecté approuvé",
+	archive_field: "A demandé à retirer un champ",
 
-	load_skill: "Read its instructions for this",
-	web_search: "Searched the web",
-	web_fetch: "Read a web page",
-	todo: "Updated its plan",
-	ask_question: "Asked a question",
-	agent: "Handed part of the job to a helper",
-	connection_search: "Looked for a tool it could use",
-	connection_execute: "Used a connected tool",
-	request_connection: "Checked a connection",
-	bash: "Ran a command",
-	read_file: "Read a file",
-	write_file: "Wrote a file",
-	glob: "Looked for files",
-	grep: "Searched inside the files",
+	load_skill: "A lu ses consignes pour cette tâche",
+	web_search: "A cherché sur le web",
+	web_fetch: "A lu une page web",
+	todo: "A mis à jour son plan",
+	ask_question: "A posé une question",
+	agent: "A confié une partie du travail à un assistant",
+	connection_search: "A cherché un outil utilisable",
+	connection_execute: "A utilisé un outil connecté",
+	request_connection: "A vérifié une connexion",
+	bash: "A lancé une commande",
+	read_file: "A lu un fichier",
+	write_file: "A écrit un fichier",
+	glob: "A cherché des fichiers",
+	grep: "A cherché dans les fichiers",
 };
 
 export type TranscriptMessage = {
@@ -386,7 +386,7 @@ export function describe(part: EveMessagePart): string {
 		state === "input-available" ||
 		state === "approval-requested";
 
-	return VERBS[tool] ?? (pending ? "Working on it" : "Finished a step");
+	return VERBS[tool] ?? (pending ? "En cours" : "Étape terminée");
 }
 
 export function outcomeTone(part: EveMessagePart): Tone {
@@ -471,7 +471,9 @@ export function latestTurnFailure(
 							message,
 						)
 					? "rate-limit"
-					: /credits?|quota|billing|usage limit/i.test(message)
+					: /credits?|quota|billing|usage limit|insufficient balance/i.test(
+								message,
+							)
 						? "credits"
 						: "unknown",
 		};
@@ -499,10 +501,10 @@ function input(part: EveMessagePart): EveToolInput {
 function errorTextOf(part: EveMessagePart): string | null {
 	if (!("state" in part)) return null;
 	if (part.state === "output-denied") {
-		return "This step was not approved.";
+		return "Cette étape n'a pas été approuvée.";
 	}
 	if (part.state === "output-error") {
-		return "This step failed. Ask again to retry.";
+		return "Cette étape a échoué. Relancez la demande pour réessayer.";
 	}
 	return null;
 }

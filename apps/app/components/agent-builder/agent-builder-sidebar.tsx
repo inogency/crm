@@ -78,11 +78,11 @@ export function AgentBuilderSidebar({
 	return (
 		<aside className={cn("min-h-0 min-w-0 flex-col p-4 font-sans", className)}>
 			<div className="flex h-7 shrink-0 items-center justify-between pl-2">
-				<span className="font-medium text-xs">Chats</span>
+				<span className="font-medium text-xs">Discussions</span>
 				<Button asChild variant="ghost" size="icon-xs">
 					<Link
 						href={workspaceUrl("/chat")}
-						aria-label="New agent chat"
+						aria-label="Nouvelle discussion"
 						onClick={onNavigate}
 					>
 						<Icon icon={Add} />
@@ -94,12 +94,12 @@ export function AgentBuilderSidebar({
 				{groups.map((group) => (
 					<div key={group.label}>
 						<div className="flex h-8 items-end pb-1 pl-2 font-medium text-[11px] text-muted-foreground uppercase tracking-[0.08em]">
-							{group.label}
+							{CHAT_GROUP_LABEL[group.label]}
 						</div>
 						{group.items.map((conversation) => {
 							const href = workspaceUrl(`/chat/${conversation.id}`);
 							const active = pathname === href;
-							const title = conversation.title ?? "Untitled chat";
+							const title = conversation.title ?? "Discussion sans titre";
 							return (
 								<div
 									key={conversation.id}
@@ -141,7 +141,7 @@ export function AgentBuilderSidebar({
 
 				{groups.length === 0 ? (
 					<p className="px-2 py-3 text-muted-foreground text-xs">
-						No chats in the last 7 days.
+						Aucune discussion ces 7 derniers jours.
 					</p>
 				) : null}
 
@@ -174,7 +174,7 @@ function TeamAgents({
 				onClick={onNavigate}
 				className="flex h-8 items-end gap-2 rounded-sm px-2 pb-1 font-medium text-[11px] text-muted-foreground uppercase tracking-[0.08em] outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60"
 			>
-				<span className="min-w-0 flex-1">Team agents</span>
+				<span className="min-w-0 flex-1">Agents de l'équipe</span>
 				<span className="shrink-0 font-mono">{agents.length}</span>
 			</Link>
 			{agents.map((agent) => {
@@ -229,6 +229,13 @@ function ConversationState({ state }: { state: Conversation["state"] }) {
 
 	return null;
 }
+
+// Afrique Academy fork: group keys stay English (typed), labels shown in French.
+const CHAT_GROUP_LABEL: Record<ChatDateGroup, string> = {
+	Today: "Aujourd'hui",
+	Yesterday: "Hier",
+	"Last 7 days": "7 derniers jours",
+};
 
 function groupConversations(conversations: Conversation[], now: number) {
 	if (!now) return [];

@@ -39,7 +39,7 @@ export function reportBulk(
 	done: (count: number) => string,
 ): void {
 	if (result.succeeded === 0) {
-		toast.error(result.message ?? "Nothing changed.");
+		toast.error(result.message ?? "Rien n'a changé.");
 		return;
 	}
 
@@ -93,7 +93,7 @@ export function BulkOwnerMenu({
 }) {
 	return (
 		<DropdownMenuSub>
-			<DropdownMenuSubTrigger>Assign owner</DropdownMenuSubTrigger>
+			<DropdownMenuSubTrigger>Attribuer un responsable</DropdownMenuSubTrigger>
 			<DropdownMenuSubContent className="max-h-72 overflow-y-auto">
 				<DropdownMenuGroup>
 					{unassignedLabel && (
@@ -102,7 +102,9 @@ export function BulkOwnerMenu({
 						</DropdownMenuItem>
 					)}
 					{users.length === 0 ? (
-						<DropdownMenuLabel>Nobody else works here yet.</DropdownMenuLabel>
+						<DropdownMenuLabel>
+							Personne d'autre ne travaille ici pour l'instant.
+						</DropdownMenuLabel>
 					) : (
 						users.map((user) => (
 							<DropdownMenuItem
@@ -141,9 +143,9 @@ export function BulkDeleteDialog({
 				</AlertDialogHeader>
 
 				<AlertDialogFooter>
-					<AlertDialogCancel>Cancel</AlertDialogCancel>
+					<AlertDialogCancel>Annuler</AlertDialogCancel>
 					<AlertDialogAction variant="destructive" onClick={onConfirm}>
-						Delete
+						Supprimer
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

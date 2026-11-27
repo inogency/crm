@@ -79,7 +79,7 @@ export function DeleteChatAction({
 					size="icon-xs"
 					className={className}
 					disabled={removeAction.pending}
-					aria-label={`Delete ${title}`}
+					aria-label={`Supprimer ${title}`}
 					onClick={() => setConfirming(true)}
 				>
 					<Icon icon={Close} />
@@ -93,7 +93,7 @@ export function DeleteChatAction({
 							disabled={removeAction.pending}
 						>
 							<Icon icon={OverflowMenuVertical} />
-							<span className="sr-only">More chat actions</span>
+							<span className="sr-only">Plus d'actions</span>
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
@@ -102,7 +102,7 @@ export function DeleteChatAction({
 							onSelect={() => setConfirming(true)}
 						>
 							<Icon icon={TrashCan} />
-							Delete chat
+							Supprimer la discussion
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
@@ -118,8 +118,9 @@ export function DeleteChatAction({
 					<AlertDialogHeader>
 						<AlertDialogTitle>Delete {title}?</AlertDialogTitle>
 						<AlertDialogDescription>
-							This permanently deletes the chat, its messages, attachments, and
-							shared link. Any agent created from it stays available.
+							La discussion, ses messages, ses pièces jointes et son lien de
+							partage sont supprimés définitivement. Les agents créés depuis
+							restent disponibles.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
@@ -134,11 +135,11 @@ export function DeleteChatAction({
 						>
 							<AsyncButtonContent
 								status={removeAction.status}
-								pendingLabel="Deleting"
-								successLabel="Deleted"
-								errorLabel="Try again"
+								pendingLabel="Suppression"
+								successLabel="Supprimée"
+								errorLabel="Réessayer"
 							>
-								Delete chat
+								Supprimer la discussion
 							</AsyncButtonContent>
 						</Button>
 					</AlertDialogFooter>

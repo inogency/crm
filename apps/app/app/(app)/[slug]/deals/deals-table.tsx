@@ -34,7 +34,7 @@ type DealRow = RouterOutputs["deals"]["list"]["rows"][number];
 const COLUMNS: DataTableColumn<DealRow>[] = [
 	{
 		id: "name",
-		header: "Deal",
+		header: "Affaire",
 		sortable: true,
 		hideable: false,
 		width: "w-[24%]",
@@ -42,21 +42,21 @@ const COLUMNS: DataTableColumn<DealRow>[] = [
 	},
 	{
 		id: "company",
-		header: "Company",
+		header: "Société",
 		sortable: true,
 		width: "w-[18%]",
 		cell: (row) => <CompanyCell company={row.company} />,
 	},
 	{
 		id: "stage",
-		header: "Stage",
+		header: "Étape",
 		sortable: true,
 		width: "w-[18%]",
 		cell: (row) => <DealStageMenu dealId={row.id} stage={row.stage} />,
 	},
 	{
 		id: "amount",
-		header: "Amount",
+		header: "Montant",
 		sortable: true,
 		align: "right",
 		width: "w-[12%]",
@@ -72,7 +72,7 @@ const COLUMNS: DataTableColumn<DealRow>[] = [
 	},
 	{
 		id: "owner",
-		header: "Owner",
+		header: "Responsable",
 		sortable: true,
 		width: "w-[14%]",
 		hideBelow: "md",
@@ -80,7 +80,7 @@ const COLUMNS: DataTableColumn<DealRow>[] = [
 	},
 	{
 		id: "expectedCloseDate",
-		header: "Close date",
+		header: "Clôture prévue",
 		sortable: true,
 		width: "w-[12%]",
 		hideBelow: "lg",
@@ -95,8 +95,8 @@ const COLUMNS: DataTableColumn<DealRow>[] = [
 	},
 	{
 		id: "createdAt",
-		header: "Created",
-		label: "Created date",
+		header: "Créé le",
+		label: "Date de création",
 		sortable: true,
 		align: "right",
 		width: "w-[10%]",
@@ -109,7 +109,7 @@ const COLUMNS: DataTableColumn<DealRow>[] = [
 	},
 	{
 		id: "lastActivity",
-		header: "Last activity",
+		header: "Dernière activité",
 		sortable: true,
 		align: "right",
 		width: "w-[12%]",
@@ -128,8 +128,8 @@ const COLUMNS: DataTableColumn<DealRow>[] = [
 
 const ARCHIVED_COLUMN: DataTableColumn<DealRow> = {
 	id: "archivedAt",
-	header: "Archived",
-	label: "Archived date",
+	header: "Archivé le",
+	label: "Date d'archivage",
 	sortable: true,
 	align: "right",
 	width: "w-[12%]",
@@ -186,7 +186,7 @@ export function DealsTable() {
 	const facets: DataTableFacet[] = [
 		{
 			id: "owner",
-			label: "Owner",
+			label: "Responsable",
 			options: (users.data ?? []).flatMap((user) =>
 				(facetCounts?.owner?.[user.id] ?? 0) > 0
 					? [{ value: user.id, label: user.name }]
@@ -195,14 +195,14 @@ export function DealsTable() {
 		},
 		{
 			id: "stage",
-			label: "Stage",
+			label: "Étape",
 			options: DEAL_STAGE_OPTIONS.filter(
 				(option) => (facetCounts?.stage?.[option.value] ?? 0) > 0,
 			),
 		},
 		{
 			id: "closing",
-			label: "Closing",
+			label: "Clôture",
 			options: CLOSING_OPTIONS.flatMap((option) =>
 				(facetCounts?.closing?.[option.value] ?? 0) > 0
 					? [{ value: option.value, label: option.label }]
@@ -230,7 +230,9 @@ export function DealsTable() {
 	return (
 		<DataTable
 			query={query}
-			search={<ListSearch placeholder="Search deals by name or company…" />}
+			search={
+				<ListSearch placeholder="Rechercher une affaire par nom ou société…" />
+			}
 			actions={
 				<Button
 					variant={input.archived ? "contrast" : "outline"}
@@ -239,7 +241,7 @@ export function DealsTable() {
 					onClick={() => toggleArchived(!input.archived)}
 				>
 					<Archive data-icon="inline-start" />
-					Archived
+					Archivés
 				</Button>
 			}
 			columns={columns}
@@ -249,10 +251,10 @@ export function DealsTable() {
 			facets={facets}
 			tabs={{
 				id: "status",
-				allLabel: "All deals",
+				allLabel: "Toutes les affaires",
 				options: [
-					{ value: "open", label: "Open" },
-					{ value: "closed", label: "Closed" },
+					{ value: "open", label: "Ouvertes" },
+					{ value: "closed", label: "Clôturées" },
 				],
 			}}
 			selection={{
@@ -271,21 +273,23 @@ export function DealsTable() {
 			onRowHover={(row) => prefetchRecord({ kind: "deal", id: row.id })}
 			onRowClick={(row) => openRecord({ kind: "deal", id: row.id })}
 			empty={
-				input.archived ? "No archived deals." : "No deals match this view."
+				input.archived
+					? "Aucune affaire archivée."
+					: "Aucune affaire ne correspond à cette vue."
 			}
 			meta={
 				input.archived || openPipelineCents === null ? undefined : (
 					<span>
-						{deals.data?.total ?? 0} deals ·{" "}
+						{deals.data?.total ?? 0} affaires ·{" "}
 						<span className="tabular-nums">
 							{formatMoney(openPipelineCents, reportingCurrency)}
 						</span>{" "}
-						open pipeline
+						de pipeline ouvert
 						{unconverted && unconverted.count > 0 ? (
 							<span className="text-muted-foreground">
 								{" "}
-								· {unconverted.count} not counted (no{" "}
-								{unconverted.currencies.join(", ")} rate)
+								· {unconverted.count} non comptées (pas de taux{" "}
+								{unconverted.currencies.join(", ")})
 							</span>
 						) : null}
 					</span>

@@ -178,7 +178,7 @@ describe("toTranscript", () => {
 
 		expect(item).toMatchObject({
 			kind: "did",
-			label: "Named this chat",
+			label: "A nommé cette discussion",
 			pending: false,
 		});
 	});
@@ -314,7 +314,7 @@ describe("toTranscript", () => {
 
 		expect(grouped[0]?.items[0]).toMatchObject({
 			kind: "did",
-			errorText: "This step failed. Ask again to retry.",
+			errorText: "Cette étape a échoué. Relancez la demande pour réessayer.",
 			tone: "warning",
 		});
 	});
@@ -494,7 +494,7 @@ describe("eventStreamSettled", () => {
 describe("describe", () => {
 	it("says what happened in a rep's words, not the tool's", () => {
 		expect(describeStep(tool("read_crm_history") as never)).toBe(
-			"Read our emails and meetings with them",
+			"A lu nos e-mails et réunions avec ce contact",
 		);
 	});
 
@@ -504,14 +504,12 @@ describe("describe", () => {
 		});
 
 		expect(describeStep(step as never)).toBe(
-			"Checked a profile against the account itself",
+			"A vérifié un profil auprès du compte lui-même",
 		);
 	});
 
 	it("hides an unknown completed tool name", () => {
-		expect(describeStep(tool("some_new_tool") as never)).toBe(
-			"Finished a step",
-		);
+		expect(describeStep(tool("some_new_tool") as never)).toBe("Étape terminée");
 	});
 
 	it("hides an unknown active tool name", () => {
@@ -519,7 +517,7 @@ describe("describe", () => {
 			describeStep(
 				tool("some_new_tool", { state: "input-available" }) as never,
 			),
-		).toBe("Working on it");
+		).toBe("En cours");
 	});
 });
 
@@ -865,7 +863,7 @@ describe("tool call details", () => {
 
 		expect(row?.items[0]).toMatchObject({
 			kind: "did",
-			errorText: "This step failed. Ask again to retry.",
+			errorText: "Cette étape a échoué. Relancez la demande pour réessayer.",
 		});
 	});
 
