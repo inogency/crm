@@ -3,9 +3,9 @@
 import ArrowRight from "@carbon/icons-react/es/ArrowRight";
 import { Icon } from "@crm/ui/components/icon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { adoptChatUrl } from "@/lib/chat-route";
 import { useTRPC } from "@/lib/trpc/client";
 import { useWorkspaceUrl } from "@/lib/use-workspace-url";
 import { AgentComposer, type BuilderComposerPrompt } from "./agent-composer";
@@ -20,6 +20,7 @@ export function AgentBuilderHome({ name }: { name: string }) {
 	const workspaceUrl = useWorkspaceUrl();
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
+	const router = useRouter();
 	const [initialPrompt, setInitialPrompt] = useState("");
 	const create = useMutation(
 		trpc.conversations.createBuilder.mutationOptions({
@@ -27,7 +28,10 @@ export function AgentBuilderHome({ name }: { name: string }) {
 				await queryClient.invalidateQueries({
 					queryKey: trpc.conversations.builderList.pathKey(),
 				});
-				adoptChatUrl(window.history, workspaceUrl(`/chat/${id}`));
+				// Afrique Academy fork: history.replaceState only rewrote the URL, the page stayed on
+				// the empty home until the chat was clicked in the sidebar. router.replace renders it
+				// (and still adds no history entry).
+				router.replace(workspaceUrl(`/chat/${id}`));
 			},
 			onError: (error) => toast.error(error.message),
 		}),
