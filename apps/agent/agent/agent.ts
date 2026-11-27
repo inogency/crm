@@ -3,7 +3,7 @@ import "@crm/env/load";
 import { onTelemetryProblem, syncVersion } from "@crm/telemetry";
 import { defineAgent, defineDynamic } from "eve";
 import { logCapabilities } from "./lib/capabilities";
-import { selectedModel } from "./lib/model";
+import { directCompaction, directModel, selectedModel } from "./lib/model";
 
 void logCapabilities();
 
@@ -13,8 +13,12 @@ void syncVersion();
 
 export default defineAgent({
 	model: defineDynamic({
-		events: { "session.started": () => selectedModel() },
+		events: {
+			"session.started": () => selectedModel(),
+			"step.started": async () => directModel() ?? selectedModel(),
+		},
 	}),
+	...directCompaction(),
 	limits: {
 		maxInputTokensPerSession: 500_000,
 		maxOutputTokensPerSession: 50_000,

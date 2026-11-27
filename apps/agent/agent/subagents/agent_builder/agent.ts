@@ -1,12 +1,20 @@
 import { defineAgent, defineDynamic } from "eve";
-import { selectedModel } from "../../lib/model";
+import {
+	directCompaction,
+	directModel,
+	selectedModel,
+} from "../../lib/model";
 
 export default defineAgent({
 	description:
 		"Turn one private CRM builder-chat request into a validated, reviewable team-agent version without deploying it.",
 	model: defineDynamic({
-		events: { "session.started": () => selectedModel() },
+		events: {
+			"session.started": () => selectedModel(),
+			"step.started": async () => directModel() ?? selectedModel(),
+		},
 	}),
+	...directCompaction(),
 	limits: {
 		maxInputTokensPerSession: 100_000,
 		maxOutputTokensPerSession: 10_000,
