@@ -348,7 +348,7 @@ function CompanyOverview({ company }: { company: Company }) {
 								label="Domaine"
 								value={company.domain}
 								type="url"
-								placeholder="stripe.com"
+								placeholder="exemple.ma"
 								saving={isSaving("domain")}
 								onSave={(domain) => save({ domain })}
 							/>
@@ -356,9 +356,16 @@ function CompanyOverview({ company }: { company: Company }) {
 								label="Site web"
 								value={company.website}
 								type="url"
-								placeholder="https://stripe.com"
+								placeholder="https://exemple.ma"
 								saving={isSaving("website")}
-								onSave={(website) => save({ website })}
+								// Afrique Academy fork: enrichment needs a domain; take it from the site when empty.
+								onSave={(website) =>
+									save(
+										website && !company.domain
+											? { website, domain: website }
+											: { website },
+									)
+								}
 							/>
 							<InlineField
 								label="Téléphone"

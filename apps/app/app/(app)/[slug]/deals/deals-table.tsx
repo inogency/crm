@@ -23,6 +23,7 @@ import { DealStageMenu } from "@/components/crm/stage-change";
 import { ListSearch } from "@/components/data-table/list-search";
 import { useTableQuery } from "@/components/data-table/use-table-query";
 import { LocalDay, LocalRelativeTime } from "@/components/local-date-time";
+import { CLIENT_TYPE_FACET } from "@/lib/client-type";
 import { DEAL_STAGE_OPTIONS } from "@/lib/deal-stage";
 import { useTRPC } from "@/lib/trpc/client";
 import type { RouterOutputs } from "@/lib/trpc/types";
@@ -184,6 +185,7 @@ export function DealsTable() {
 	const fieldFacets = useFieldFacets("DEAL", facetCounts);
 
 	const facets: DataTableFacet[] = [
+		CLIENT_TYPE_FACET,
 		{
 			id: "owner",
 			label: "Responsable",

@@ -31,6 +31,7 @@ export const dealListInput = listInput.extend({
 	owner: z.array(z.string()).default([]),
 	stage: z.array(z.string()).default([]),
 	closing: z.array(z.string()).default([]),
+	client: z.array(z.string()).default([]),
 	fields: z.record(z.string(), z.array(z.string())).default({}),
 	archived: z.boolean().default(false),
 });

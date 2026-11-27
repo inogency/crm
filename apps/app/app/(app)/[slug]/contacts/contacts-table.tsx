@@ -25,6 +25,7 @@ import { SavedViewsMenu } from "@/components/data-table/saved-views-menu";
 import { useTableQuery } from "@/components/data-table/use-table-query";
 import { LocalRelativeTime } from "@/components/local-date-time";
 import { ACTIVITY_FACET_OPTIONS } from "@/lib/activity-recency";
+import { CLIENT_TYPE_FACET } from "@/lib/client-type";
 import { useTRPC } from "@/lib/trpc/client";
 import type { RouterOutputs } from "@/lib/trpc/types";
 import { ContactsBulkActions } from "./contacts-bulk-actions";
@@ -194,6 +195,7 @@ export function ContactsTable() {
 	const fieldFacets = useFieldFacets("CONTACT", facetCounts);
 
 	const facets: DataTableFacet[] = [
+		CLIENT_TYPE_FACET,
 		{
 			id: "owner",
 			label: "Responsable",

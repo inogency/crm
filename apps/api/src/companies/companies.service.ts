@@ -349,7 +349,7 @@ export class CompaniesService {
 			const domain = normalizeDomain(input.domain);
 			if (input.domain.trim() && !domain) {
 				throw new BadRequestException(
-					`"${input.domain}" is not a domain — try something like "stripe.com".`,
+					`« ${input.domain} » n'est pas un domaine valide — essayez par exemple « exemple.ma ».`,
 				);
 			}
 			data.domain = domain;

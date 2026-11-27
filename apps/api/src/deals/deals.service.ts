@@ -26,6 +26,7 @@ import {
 	type StampTargets,
 } from "../crm/activity-stamp.service";
 import { type BulkResult, requireOwner, runBulk } from "../crm/bulk";
+import { clientTypeCompany } from "../crm/client-type";
 import {
 	blankToNull,
 	decimalFromCents,
@@ -759,6 +760,9 @@ export class DealsService {
 
 		const owner = ownerFilter<Prisma.DealWhereInput>(input.owner);
 		if (owner) and.push(owner);
+
+		const clientCompany = clientTypeCompany(input.client);
+		if (clientCompany) and.push({ company: clientCompany });
 
 		if (input.status === "open") {
 			and.push({ stage: { in: [...OPEN_DEAL_STAGES] } });

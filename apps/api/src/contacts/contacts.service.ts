@@ -23,6 +23,7 @@ import {
 	type StampTargets,
 } from "../crm/activity-stamp.service";
 import { type BulkResult, requireOwner, runBulk } from "../crm/bulk";
+import { clientTypeCompany } from "../crm/client-type";
 import { blankToNull, normalizeEmail, toCents } from "../crm/values";
 import { InjectDatabase } from "../database/database.constants";
 import { FieldsService } from "../fields/fields.service";
@@ -819,6 +820,9 @@ export class ContactsService {
 
 		const company = this.companyFilter(input.company);
 		if (company) and.push(company);
+
+		const clientCompany = clientTypeCompany(input.client);
+		if (clientCompany) and.push({ company: clientCompany });
 
 		if (input.source.length > 0) {
 			and.push({ source: { in: input.source as RecordSource[] } });

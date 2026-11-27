@@ -237,6 +237,7 @@ describe("the deals list", () => {
 			owner: [userId],
 			stage: [],
 			closing: [],
+			client: [],
 			fields: {},
 			archived: false,
 		});
